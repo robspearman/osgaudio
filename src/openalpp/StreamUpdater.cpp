@@ -61,9 +61,9 @@ StreamUpdater::~StreamUpdater() {
     stop();
     runmutex_.unlock();
 
-    release();
-
-    cancel();
+    // Fix for 'thread still running in destructor' warnings.
+    while(isRunning())
+	OpenThreads::Thread::microSleep(100);
 
     /* remove all sources, there may be a better way
     ** but otherwise sources are not removed for streams that reach EOF

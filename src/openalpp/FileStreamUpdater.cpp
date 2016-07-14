@@ -137,6 +137,9 @@ void FileStreamUpdater::run()
                         break;
 
                 }
+		else
+		    break; // Fix for thread never exiting after EOF
+
             }
             else
             {
